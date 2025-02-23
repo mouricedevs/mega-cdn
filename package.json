@@ -10,7 +10,7 @@
     "restart": "pm2 restart megacdn"
   },
   "keywords": ["cdn", "serverless", "mega", "fastify", "streaming"],
-  "author": "IRON-M4N",
+  "author": "IRON-M4N & GIFTED TECH",
   "license": "MIT",
   "dependencies": {
     "@fastify/multipart": "^9.0.3",
