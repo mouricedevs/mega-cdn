@@ -84,6 +84,10 @@ curl -X POST -F "file=@image.jpg" https://yourdomain.com/api/upload.php
 <summary>SIMPLE DOCUMENTATION</summary>
 
 ```js
+const axios = require("axios");
+const fs = require("fs");
+const FormData = require("form-data");
+
 async function giftedCdn(path) {
   if (!fs.existsSync(path)) {
     throw new Error(File not found: ${path});
@@ -114,6 +118,8 @@ async function giftedCdn(path) {
     }
   }
 }
+
+module.exports = { giftedCdn };
 ```
 
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
@@ -121,6 +127,10 @@ async function giftedCdn(path) {
 ### Example Usage in Whatsapp Bot
 
 ```js
+const { giftedCdn } = require("./uploader"); // Import the giftedCdn function
+const fs = require("fs");
+const path = require("path");
+
 gmd(
   {
     pattern: 'upload',
@@ -139,7 +149,7 @@ gmd(
       if (!mediaBuffer) {
         return reply('Failed to download media. Please try again.');
       }
-      const { fileTypeFromBuffer } = await import('file-type');
+      const { fileTypeFromBuffer } = await import('file-type'); // Import file-type npm package
       const fileType = await fileTypeFromBuffer(mediaBuffer);
       if (!fileType) {
         return reply('Unable to determine the file type of the media.');
