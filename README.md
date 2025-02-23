@@ -163,9 +163,11 @@ module.exports = { giftedCdn };
 
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 
-### Example Usage in Whatsapp Bot
+### Example Usage in Whatsapp Bot 
 
 ```js
+// GIFTED-MD
+
 const { gmd, makeId, giftedCdn } = require('../gift');
 const fs = require("fs");
 const path = require("path");
@@ -195,7 +197,7 @@ gmd(
       }
 
       // Generate a random filename using makeId function
-      const filename = `file_${makeId(5)}.${fileType.ext}`;
+      const filename = `${makeId(5)}.${fileType.ext}`;
 
       // Save the media to a temporary file
       const tempFilePath = path.join(__dirname, filename);
@@ -208,7 +210,7 @@ gmd(
       const deleteUrl = uploadResult.files[0].delete_url;
       const stats = fs.statSync(tempFilePath);
       const fileSizeMB = stats.size / (1024 * 1024);
-      const message = `*Hey ${pushname}, Here Are Your Media URLs:*\n\nFile Url:${downloadUrl}\nDelete Url:${deleteUrl}\n*File Size:* ${fileSizeMB.toFixed(
+      const message = `*Hey ${pushname}, Here Are Your Media URLs:*\n\nStream Url:${streamUrl}\nDownload Url:${downloadUrl}\nDelete Url:${deleteUrl}\n*File Size:* ${fileSizeMB.toFixed(
         2
       )} MB\n*File Type:* ${fileType.ext.toUpperCase()}\n*File Expiration:* No Expiry Unless Deleted`;
       if (fileType.mime.startsWith('image/') || fileType.mime.startsWith('video/')) {
