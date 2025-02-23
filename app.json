@@ -1,7 +1,7 @@
 {
     "name": "Megajs CDN",
     "description": "A lightweight and serverless CDN utilizing MEGA for file storage and delivery...",
-    "logo": "https://files.giftedtech.my.id/file/gifted-md.jpg",
+    "logo": "https://files.catbox.moe/52699c.jpg",
     "repository": "https://github.com/mouricedevs/mega-cdn",
     "keywords": ["Gifted-Tech"],
     "success_url": "/", 
