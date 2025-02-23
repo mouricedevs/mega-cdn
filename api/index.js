@@ -106,6 +106,7 @@ fastify.post("/api/upload.php", async (request, reply) => {
           success: false,
           message: "File Already Exists in Database",
           file: {
+            stream_url: `${config.server.domain}/file/${files[0].originalFileName}`,
             download_url: `${config.server.domain}/file/download/${originalFileName}`,
             delete_url: `${config.server.domain}/file/delete/${originalFileName}`,
             name: originalFileName,
@@ -149,6 +150,7 @@ fastify.post("/api/upload.php", async (request, reply) => {
       success: true,
       creator: 'GiftedTech',
       files: uploads.map((upload) => ({
+        stream_url: `${config.server.domain}/file/${files[0].originalFileName}`,
         download_url: `${config.server.domain}/file/download/${files[0].originalFileName}`,
         delete_url: `${config.server.domain}/file/delete/${files[0].originalFileName}`,
         name: files[0].originalFileName,
@@ -159,6 +161,56 @@ fastify.post("/api/upload.php", async (request, reply) => {
   } catch (error) {
     request.log.error(error);
     reply.code(400).send({ success: false, error: error.message });
+  }
+});
+
+
+// Force Streaming File
+fastify.get("/file/*", async (request, reply) => {
+  try {
+    const originalFileName = request.params['*'];
+
+    // Find file in MongoDB
+    const fileRecord = await File.findOne({ originalFileName });
+    if (!fileRecord) {
+      return reply.code(404).send({
+        status: 'error',
+        message: 'File not found'
+      });
+    }
+
+    const megaFileName = fileRecord.megaFileName;
+    const fileUrl = `https://mega.nz/file/${megaFileName}`;
+
+    const file = Mega.File.fromURL(fileUrl);
+    await file.loadAttributes();
+
+    // headers
+    reply.header('Content-Type', file.mime);
+    reply.header('Content-Length', file.size);
+    reply.header('Cache-Control', `public, max-age=${config.server.cacheTTL}`);
+    reply.header('Content-Disposition', `inline; filename="${originalFileName}"`);
+
+    const downloadStream = file.download();
+    downloadStream.on('error', (error) => {
+      request.log.error('Stream error:', error);
+      if (!reply.sent) {
+        reply.code(500).send({
+          status: 'error',
+          message: 'Streaming failed',
+          error: error.message
+        });
+      }
+    });
+    return reply.send(downloadStream);
+
+  } catch (error) {
+    request.log.error('Serve error:', error);
+    return reply.code(500).send({
+      status: 'error',
+      message: 'Failed to serve file',
+      error: error.message
+    });
   }
 });
 
@@ -185,7 +237,7 @@ fastify.get("/file/download/*", async (request, reply) => {
     reply.header("Content-Type", file.mime);
     reply.header("Content-Disposition", `attachment; filename="${file.name}"`); // Force download
 
-    // Stream the file from MEGA
+    // download the file from MEGA
     return reply.send(file.download());
   } catch (error) {
     request.log.error(error);
