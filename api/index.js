@@ -106,6 +106,7 @@ fastify.post("/api/upload.php", async (request, reply) => {
           success: false,
           message: "File Already Exists in Database",
           file: {
+            file_name: `${originalFileName}`,
             stream_url: `${config.server.domain}/file/${originalFileName}`,
             download_url: `${config.server.domain}/file/download/${originalFileName}`,
             delete_url: `${config.server.domain}/file/delete/${originalFileName}`,
@@ -150,6 +151,7 @@ fastify.post("/api/upload.php", async (request, reply) => {
       success: true,
       creator: 'GiftedTech',
       files: uploads.map((upload) => ({
+        file_name: `${files[0].originalFileName}`,
         stream_url: `${config.server.domain}/file/${files[0].originalFileName}`,
         download_url: `${config.server.domain}/file/download/${files[0].originalFileName}`,
         delete_url: `${config.server.domain}/file/delete/${files[0].originalFileName}`,
