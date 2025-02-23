@@ -240,7 +240,8 @@
             icon: 'success',
             html: `
               <p><strong>File Name:</strong> ${fileInput.files[0].name}</p>
-              <p><strong>File Size:</strong> ${(fileInput.files[0].size / 1024).toFixed(2)} KB</p>
+              <p><strong>File Size:</strong> ${(fileInput.files[0].size / 1024).toFixed(2)} KBs</p>
+              <p><strong>Stream URL:</strong> ${result.files[0].stream_url}</p>
               <p><strong>Download URL:</strong> ${result.files[0].download_url}</p>
               <p><strong>Delete URL:</strong> ${result.files[0].delete_url}</p>
               <p><strong>Expiration:</strong> No Expiry</p>
@@ -257,6 +258,7 @@
             icon: 'info',
             html: `
               <p><strong>File Name:</strong> ${result.file.name}</p>
+              <p><strong>Stream URL:</strong> ${result.file.stream_url}</p>
               <p><strong>Download URL:</strong> ${result.file.download_url}</p>
               <p><strong>Delete URL:</strong> ${result.file.delete_url}</p>
               <button onclick="copyAllLinks('${result.file.stream_url}', '${result.file.download_url}', '${result.file.delete_url}')">Copy File URLs</button>
@@ -283,10 +285,10 @@
     });
 
     // Function to copy all links
-    function copyAllLinks(downloadUrl, deleteUrl) {
-      const links = `Download URL: ${downloadUrl}\nDelete URL: ${deleteUrl}`;
+    function copyAllLinks(streamUrl, downloadUrl, deleteUrl) {
+      const links = `StreamUrl URL: ${streamUrl}\nDownload URL: ${downloadUrl}\nDelete URL: ${deleteUrl}`;
       navigator.clipboard.writeText(links).then(() => {
-        Swal.fire('Copied!', 'All file links have been copied to clipboard.', 'success');
+        Swal.fire('Copied!', 'All File Links Copied to Clipboard.', 'success');
       });
     }
   </script>
