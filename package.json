@@ -1,0 +1,33 @@
+{
+  "name": "megacdn",
+  "version": "1.0.0",
+  "description": "A lightweight and serverless CDN utilizing MEGA for file storage and delivery.",
+  "main": "./api/index.js",
+  "scripts": {
+    "start": "pm2 start ./api/index.js --name 'megacdn' --restart-delay 5000 --log-date-format 'YYYY-MM-DD HH:mm:ss' --attach",
+    "lint": "eslint . --fix",
+    "stop": "pm2 stop megacdn",
+    "restart": "pm2 restart megacdn"
+  },
+  "keywords": ["cdn", "serverless", "mega", "fastify", "streaming"],
+  "author": "IRON-M4N",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/multipart": "^9.0.3",
+    "@fastify/rate-limit": "^10.2.2",
+    "@fastify/static": "latest",
+    "@fastify/cors": "latest",
+    "async-mutex": "^0.5.0",
+    "mongoose": "latest",
+    "fastify": "^5.2.1",
+    "pino-pretty": "latest",
+    "file-type": "^16.5.3",
+    "megajs": "^1.3.5",
+    "pm2": "^5.4.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "eslint": "^9.20.1",
+    "globals": "^16.0.0"
+  }
+}

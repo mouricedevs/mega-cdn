@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gifted File Uploader - Easily upload files with a user-friendly interface. Supports all file types.">
+  <meta property="og:title" content="Gifted File Uploader">
+  <meta property="og:description" content="Upload files quickly and easily with Gifted. Supports all file types.">
+  <meta property="og:image" content="https://telegra.ph/file/c2a4d8d65722553da4c89.jpg">
+  <meta property="og:url" content="https://cdn.giftedtech.web.id/upload">
+  <title>Gifted File Uploader</title>
+  <link rel="icon" href="https://telegra.ph/file/c2a4d8d65722553da4c89.jpg" type="image/x-icon">
+  <style>
+    /* Dark mode as default */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: #121212; /* Dark background */
+      color: #ffffff; /* Light text */
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: rgba(18, 18, 18, 0.9); /* Dark container */
+      border-radius: 60px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); /* Light shadow */
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      animation: colorChange 5s infinite alternate;
+    }
+
+    @keyframes colorChange {
+      0% { color: #ff0000; }
+      25% { color: #00ff00; }
+      50% { color: #0000ff; }
+      75% { color: #ffff00; }
+      100% { color: #ff00ff; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #333; /* Dark input */
+      color: #fff; /* Light text */
+      border: 1px solid #555;
+    }
+
+    button {
+      background-color: #007bff;
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #bbb; /* Light gray text */
+    }
+
+    .round-image {
+      width: 75px;
+      height: 75px;
+      border-radius: 70%;
+      object-fit: cover;
+    }
+
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .marquee p {
+      display: inline-block;
+      padding: 0;
+      animation: marquee 8s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+
+    /* Light mode styles */
+    body.light-mode {
+      background-color: #f5f5f5; /* Light background */
+      color: #000000; /* Dark text */
+    }
+
+    body.light-mode .container {
+      background-color: rgba(255, 255, 255, 0.9); /* Light container */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Dark shadow */
+    }
+
+    body.light-mode input[type="file"] {
+      background-color: #fff; /* Light input */
+      color: #000; /* Dark text */
+      border: 1px solid #ddd;
+    }
+
+    body.light-mode .footer {
+      color: #555; /* Dark gray text */
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .theme-toggle:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="dark-mode">
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+  <div class="container">
+    <div class="flex justify-center mb-4">
+      <img src="https://telegra.ph/file/c2a4d8d65722553da4c89.jpg" alt="Gifted Tech" class="round-image">
+    </div>
+    <h1 class="color-change"><b>Free File Uploader</b></h1>
+    <div class="marquee mb-6">
+      <p><b>A Simple Yet Powerful All File Uploader</b></p>
+    </div>
+    <form id="upload-form" enctype="multipart/form-data">
+      <div class="form-group">
+        <input type="file" id="file" name="file" />
+        <button type="submit">Upload</button>
+      </div>
+    </form>
+    <p id="result"></p>
+    <div class="footer">
+      <p><i>Upload Upto 100Mbs, NO Expiry</i></p>
+      <p><b>NB:</b> <i>Supports All File Types</i></p>
+      <a href="https://github.com/mouricedevs" class="text-blue-500 hover:underline"><b>©2024-2025 Gifted Tech</b></a>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle('light-mode');
+      body.classList.toggle('dark-mode');
+      const isLightMode = body.classList.contains('light-mode');
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    }
+
+    // Set theme on page load
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.classList.add(savedTheme === 'light' ? 'light-mode' : 'dark-mode');
+
+    // File upload functionality
+    document.getElementById('upload-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('file');
+      if (!fileInput.files.length) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Please Select a File',
+          icon: 'error'
+        });
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      formData.append('originalFileName', fileInput.files[0].name);
+
+      const pleaseWaitAlert = Swal.fire({
+        title: 'Please Wait',
+        text: 'Gifted is Uploading Your File...',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      try {
+        const response = await fetch('/api/upload.php', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          pleaseWaitAlert.close();
+          Swal.fire({
+            title: 'File Upload Success!',
+            text: `Done!`,
+            icon: 'success',
+            html: `
+              <p><strong>File Name:</strong> ${fileInput.files[0].name}</p>
+              <p><strong>File Size:</strong> ${(fileInput.files[0].size / 1024).toFixed(2)} KB</p>
+              <p><strong>Download URL:</strong> ${result.files[0].download_url}</p>
+              <p><strong>Delete URL:</strong> ${result.files[0].delete_url}</p>
+              <p><strong>Expiration:</strong> No Expiry</p>
+              <button onclick="copyAllLinks('${result.files[0].stream_url}', '${result.files[0].download_url}', '${result.files[0].delete_url}')">Copy File URLs</button>
+            `,
+            showConfirmButton: false,
+            allowOutsideClick: false
+          });
+        } else if (result.status === 409) {
+          pleaseWaitAlert.close();
+          Swal.fire({
+            title: 'File Already Exists',
+            text: result.message,
+            icon: 'info',
+            html: `
+              <p><strong>File Name:</strong> ${result.file.name}</p>
+              <p><strong>Download URL:</strong> ${result.file.download_url}</p>
+              <p><strong>Delete URL:</strong> ${result.file.delete_url}</p>
+              <button onclick="copyAllLinks('${result.file.stream_url}', '${result.file.download_url}', '${result.file.delete_url}')">Copy File URLs</button>
+            `,
+            showConfirmButton: false,
+            allowOutsideClick: false
+          });
+        } else {
+          pleaseWaitAlert.close();
+          Swal.fire({
+            title: 'Error',
+            text: `Error: ${result.error}`,
+            icon: 'error'
+          });
+        }
+      } catch (error) {
+        pleaseWaitAlert.close();
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred during upload.',
+          icon: 'error'
+        });
+      }
+    });
+
+    // Function to copy all links
+    function copyAllLinks(downloadUrl, deleteUrl) {
+      const links = `Download URL: ${downloadUrl}\nDelete URL: ${deleteUrl}`;
+      navigator.clipboard.writeText(links).then(() => {
+        Swal.fire('Copied!', 'All file links have been copied to clipboard.', 'success');
+      });
+    }
+  </script>
+</body>
+</html>
