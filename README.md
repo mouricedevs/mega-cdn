@@ -166,7 +166,7 @@ module.exports = { giftedCdn };
 ### Example Usage in Whatsapp Bot
 
 ```js
-const { gmd, makeid, giftedCdn } = require('../gift');
+const { gmd, makeId, giftedCdn } = require('../gift');
 const fs = require("fs");
 const path = require("path");
 
@@ -194,8 +194,8 @@ gmd(
         return reply('Unable to determine the file type of the media.');
       }
 
-      // Generate a random filename using makeid function
-      const filename = `file_${makeid(5)}.${fileType.ext}`;
+      // Generate a random filename using makeId function
+      const filename = `file_${makeId(5)}.${fileType.ext}`;
 
       // Save the media to a temporary file
       const tempFilePath = path.join(__dirname, filename);
