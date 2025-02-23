@@ -1,3 +1,4 @@
+
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 <h1 align="center"> MEGAJS CDN</h1>
 
@@ -142,6 +143,17 @@ async function giftedCdn(path) {
   }
 }
 
+//USAGE CASE
+
+/* (async () => {
+    try {
+      const result = await giftedCdn("./gifted.png");
+      console.log("Upload successful:", result);
+    } catch (error) {
+      console.error("Upload failed:", error.message);
+    }
+  })(); */
+
 module.exports = { giftedCdn };
 ```
 
@@ -150,7 +162,7 @@ module.exports = { giftedCdn };
 ### Example Usage in Whatsapp Bot
 
 ```js
-const { giftedCdn } = require("./uploader"); // Import the giftedCdn function
+const { gmd, makeid, giftedCdn } = require('../gift');
 const fs = require("fs");
 const path = require("path");
 
@@ -177,9 +189,9 @@ gmd(
       if (!fileType) {
         return reply('Unable to determine the file type of the media.');
       }
-      const now = new Date();
-      const dateTime = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-      const filename = `file_${dateTime}.${fileType.ext}`;
+
+      // Generate a random filename using makeid function
+      const filename = `file_${makeid(5)}.${fileType.ext}`;
 
       // Save the media to a temporary file
       const tempFilePath = path.join(__dirname, filename);
