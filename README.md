@@ -67,8 +67,31 @@ curl -X POST -F "file=@image.jpg" https://yourdomain.com/api/upload.php
   creator: 'GiftedTech',
   files: [
     {
+      file_name: 'filename.ext',
+      stream_url: 'https://yourdomain.com/file/filename.ext',
       download_url: 'https://yourdomain.com/file/download/filename.ext',
-      delete_url: 'https://yourdomain.com/file/delete/filenam.ext',    
+      delete_url: 'https://yourdomain.com/file/delete/filename.ext',    
+      name: 'filename.ext',
+      size: 835579
+    }
+  ]
+}
+```
+
+OR
+
+```json
+{
+  status: 200,
+  success: true,
+  creator: 'GiftedTech',
+  message: 'File Already Exists in Database',
+  file: [
+    {
+      file_name: 'filename.ext',
+      stream_url: 'https://yourdomain.com/file/filename.ext',
+      download_url: 'https://yourdomain.com/file/download/filename.ext',
+      delete_url: 'https://yourdomain.com/file/delete/filename.ext',    
       name: 'filename.ext',
       size: 835579
     }
