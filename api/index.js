@@ -106,7 +106,7 @@ fastify.post("/api/upload.php", async (request, reply) => {
           success: false,
           message: "File Already Exists in Database",
           file: {
-            stream_url: `${config.server.domain}/file/${files[0].originalFileName}`,
+            stream_url: `${config.server.domain}/file/${originalFileName}`,
             download_url: `${config.server.domain}/file/download/${originalFileName}`,
             delete_url: `${config.server.domain}/file/delete/${originalFileName}`,
             name: originalFileName,
