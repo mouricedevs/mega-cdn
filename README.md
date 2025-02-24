@@ -210,9 +210,9 @@ gmd(
       const deleteUrl = uploadResult.files[0].delete_url;
       const stats = fs.statSync(tempFilePath);
       const fileSizeMB = stats.size / (1024 * 1024);
-      const message = `*Hey ${pushname}, Here Are Your Media URLs:*\n\nStream Url:${streamUrl}\nDownload Url:${downloadUrl}\nDelete Url:${deleteUrl}\n*File Size:* ${fileSizeMB.toFixed(
+      const message = `*Hey ${pushname}, Here Are Your Media URLs:*\n\nStream Url:${streamUrl}\nDownload Url:${downloadUrl}\n*File Size:* ${fileSizeMB.toFixed(
         2
-      )} MB\n*File Type:* ${fileType.ext.toUpperCase()}\n*File Expiration:* No Expiry Unless Deleted`;
+      )} MB\n*File Type:* ${fileType.ext.toUpperCase()}\n*File Expiration:* No Expiry`;
       if (fileType.mime.startsWith('image/') || fileType.mime.startsWith('video/')) {
         await Gifted.sendMessage(
           from,
