@@ -27,9 +27,9 @@ npm install
 Modify `config.js` or use environment variables. Example `.env` file:  
 
 ```
-EMAIL=giftedtech@onlyfans.wtf
+EMAIL=giftedtech.ironman@onlyfans.com
 PASS=Katarenai nemurenai toroimerai
-DOMAIN=https://cdn.giftedtech.web.id
+DOMAIN=https://yourdomain.com
 TEMP=memory
 ```
 
