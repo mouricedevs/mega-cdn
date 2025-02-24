@@ -2,7 +2,7 @@
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 <h1 align="center"> MEGAJS CDN</h1>
 
-A lightweight and serverless CDN utilizing MEGA for file storage and delivery... 
+A Simple Lightweight CDN Utilizing MEGA for File Storage and Retrieval... 
 
 Base by **[IRON-M4N](https://github.com/IRON-M4N/MegaCDN)**
 
